@@ -15,7 +15,7 @@ int main() {
     while (true) {
         input_received = false;
 
-        std::thread timeoutThread([&state_manager, &input_received]() {
+        std::thread timeout_thread([&state_manager, &input_received]() {
             for (int i = 0; i < 5; ++i) {
                 std::this_thread::sleep_for(std::chrono::seconds(1));
                 if (input_received) return;
@@ -31,8 +31,8 @@ int main() {
             input_received = true;
         }
 
-        if (timeoutThread.joinable()) {
-            timeoutThread.join();
+        if (timeout_thread.joinable()) {
+            timeout_thread.join();
         }
     }
 }
